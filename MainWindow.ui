@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>648</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Qt SwissalpS Virtual Screens</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(60, 58, 58);
+alternate-background-color: rgb(92, 53, 102);
+border-color: rgb(136, 138, 133);
+selection-color: rgb(193, 125, 17);
+selection-background-color: rgb(233, 185, 110);
+font: 14pt &quot;Cantarell&quot;;</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QListWidget" name="listWidgetScreens"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="frame_2">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QComboBox" name="comboBoxWM">
+           <item>
+            <property name="text">
+             <string>No Window Manager</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">awesome</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineWidth">
+           <property name="inputMethodHints">
+            <set>Qt::ImhDigitsOnly</set>
+           </property>
+           <property name="inputMask">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="placeholderText">
+            <string>width</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditHeight">
+           <property name="inputMethodHints">
+            <set>Qt::ImhDigitsOnly</set>
+           </property>
+           <property name="inputMask">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="placeholderText">
+            <string>height</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBoxCommand">
+           <property name="editable">
+            <bool>true</bool>
+           </property>
+           <item>
+            <property name="text">
+             <string>awesome</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>google-chrome</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>firefox</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>vlc</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonAddScreen">
+           <property name="text">
+            <string>Add Screen</string>
+           </property>
+           <property name="default">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBoxKill">
+         <property name="text">
+          <string>Kill processes when closing this window</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
