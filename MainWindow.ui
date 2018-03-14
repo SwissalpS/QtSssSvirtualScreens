@@ -65,6 +65,9 @@ font: 14pt &quot;Cantarell&quot;;</string>
          </item>
          <item>
           <widget class="QLineEdit" name="lineWidth">
+           <property name="statusTip">
+            <string/>
+           </property>
            <property name="inputMethodHints">
             <set>Qt::ImhDigitsOnly</set>
            </property>
@@ -74,8 +77,14 @@ font: 14pt &quot;Cantarell&quot;;</string>
            <property name="text">
             <string notr="true"/>
            </property>
+           <property name="dragEnabled">
+            <bool>true</bool>
+           </property>
            <property name="placeholderText">
             <string>width</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -155,5 +164,38 @@ font: 14pt &quot;Cantarell&quot;;</string>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>lineWidth</sender>
+   <signal>returnPressed()</signal>
+   <receiver>buttonAddScreen</receiver>
+   <slot>animateClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>262</x>
+     <y>218</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>569</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEditHeight</sender>
+   <signal>returnPressed()</signal>
+   <receiver>buttonAddScreen</receiver>
+   <slot>animateClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>333</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>553</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

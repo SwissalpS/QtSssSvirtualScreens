@@ -108,7 +108,7 @@ void MainWindow::deduceBaseScreenID() {
 	QFile oF(sTempFile);
 	if (!oF.exists()) {
 
-		this->onDebugMessage("file not here");
+		this->onDebugMessage("KO:could not deduce first available screen. Risking it with :7");
 
 		// give it our best shot
 		this->ubDisplay = 7;
@@ -128,9 +128,9 @@ void MainWindow::deduceBaseScreenID() {
 
 	// destroy process
 	pProcess->close();
-	pProcess->deleteLater();
+	delete pProcess;
 
-	this->onDebugMessage("starting with DISPLAY=:"
+	this->onDebugMessage("OK:starting with DISPLAY=:"
 						 + QString::number(this->ubDisplay));
 
 } // deduceBaseScreenID
