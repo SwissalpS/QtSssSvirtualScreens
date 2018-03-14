@@ -167,6 +167,11 @@ void MainWindow::initHistory() {
 	this->pCwidth->setFilterMode(Qt::MatchContains);
 	this->pCwindowManager->setFilterMode(Qt::MatchContains);
 
+	this->pCcommand->setModelSorting(QCompleter::CaseInsensitivelySortedModel);
+	this->pCheight->setModelSorting(QCompleter::CaseInsensitivelySortedModel);
+	this->pCwidth->setModelSorting(QCompleter::CaseInsensitivelySortedModel);
+	this->pCwindowManager->setModelSorting(QCompleter::CaseInsensitivelySortedModel);
+
 	this->updateCompleters();
 
 	this->pUI->comboBoxCommand->setCompleter(this->pCcommand);
@@ -191,9 +196,11 @@ void MainWindow::on_buttonAddScreen_clicked() {
 	connect(pProcess, SIGNAL(error(QProcess::ProcessError,quint8)),
 			this, SLOT(onProcessError(QProcess::ProcessError,quint8)));
 
-	QString sWidth = this->pUI->lineWidth->text();
 	QString sHeight = this->pUI->lineEditHeight->text();
-	if (sWidth.contains("x")) {
+	const QString sWidthRaw = this->pUI->lineWidth->text();
+	QString sWidth = sWidthRaw;
+	bool bWidthHasX = sWidthRaw.contains("x");
+	if (bWidthHasX) {
 		QStringList aList = sWidth.split("x");
 		sWidth = aList.first();
 		sHeight = aList.last();
@@ -217,48 +224,137 @@ void MainWindow::on_buttonAddScreen_clicked() {
 	bool bChanged = false;
 	QJsonObject oJo = this->oJdoc.object();
 	QJsonArray oJa;
-	int iValue;
 
-	iValue = sWidth.toInt();
-	if (0 < iValue) {
+	// interesting fact: if the JSON-value is stored as int
+	// .toString() does not seem to satisfy completer.
+	// but if we store the value as string, all is fine (Qt 5.10)
+
+	if (!sWidth.isEmpty()) {
 		oJa	= oJo.value("width").toArray();
-		if (!oJa.contains(iValue)) {
-			oJa.append(iValue);
+		if (oJa.contains(sWidth)) {
+			// find it and put it on top
+			for (int iCount = 0; iCount < oJa.count(); ++iCount) {
+				if (0 == sWidth.compare(oJa.at(iCount).toString(),
+										Qt::CaseInsensitive)) {
+					// found, check if already first
+					if (0 != iCount) {
+						oJa.removeAt(iCount);
+						oJa.prepend(sWidth);
+						oJo.insert("width", oJa);
+						bChanged = true;
+					} // if not already first
+					break;
+				} // if found
+			} // loop entries for match
+		} else {
+			// not yet in list
+			oJa.prepend(sWidth);
 			oJo.insert("width", oJa);
 			bChanged = true;
-		} // if new width
+		} // if old or new width
+
+		if (bWidthHasX) {
+			if (oJa.contains(sWidthRaw)) {
+				// find it and put it on top
+				for (int iCount = 0; iCount < oJa.count(); ++iCount) {
+					if (0 == sWidthRaw.compare(oJa.at(iCount).toString()
+											   , Qt::CaseInsensitive)) {
+						// found, check if already first
+						if (0 != iCount) {
+							oJa.removeAt(iCount);
+							oJa.prepend(sWidthRaw);
+							oJo.insert("width", oJa);
+							bChanged = true;
+						} // if not already first
+						break;
+					} // if found
+				} // loop entries for match
+			} else {
+				// not yet in list
+				oJa.prepend(sWidthRaw);
+				//oJa.append(iValue);
+				oJo.insert("width", oJa);
+				bChanged = true;
+			} // if contains already or not
+		} // if given in format #x#
 	} // if got something
 
-	iValue = sHeight.toInt();
-	if (0 < iValue) {
+	if (!sHeight.isEmpty()) {
 		oJa = oJo.value("height").toArray();
-		if (!oJa.contains(iValue)) {
-			oJa.append(iValue);
+		if (oJa.contains(sHeight)) {
+			// find it and put it on top
+			for (int iCount = 0; iCount < oJa.count(); ++iCount) {
+				if (0 == sHeight.compare(oJa.at(iCount).toString(),
+										Qt::CaseInsensitive)) {
+					// found, check if already first
+					if (0 != iCount) {
+						oJa.removeAt(iCount);
+						oJa.prepend(sHeight);
+						oJo.insert("height", oJa);
+						bChanged = true;
+					} // if not already first
+					break;
+				} // if found
+			} // loop entries for match
+		} else {
+			// not yet in list
+			oJa.prepend(sHeight);
 			oJo.insert("height", oJa);
 			bChanged = true;
 		} // if new height
 	} // if got something
 
-
 	if (!sWM.isEmpty()) {
 
 		oJa = oJo.value("windowManager").toArray();
-		if (!oJa.contains(sWM)) {
-			oJa.append(sWM);
+		if (oJa.contains(sWM)) {
+			// find it and put it on top
+			for (int iCount = 0; iCount < oJa.count(); ++iCount) {
+				if (0 == sWM.compare(oJa.at(iCount).toString(),
+										Qt::CaseInsensitive)) {
+					// found, check if already first
+					if (0 != iCount) {
+						oJa.removeAt(iCount);
+						oJa.prepend(sWM);
+						oJo.insert("windowManager", oJa);
+						bChanged = true;
+					} // if not already first
+					break;
+				} // if found
+			} // loop entries for match
+		} else {
+			// not yet in list
+			oJa.prepend(sWM);
 			oJo.insert("windowManager", oJa);
 			bChanged = true;
-		} // if new
+		} // if new or old entry
 
 	} // if not empty
 
 	if (!sCommand.isEmpty()) {
 
 		oJa = oJo.value("command").toArray();
-		if (!oJa.contains(sCommand)) {
-			oJa.append(sCommand);
+		if (oJa.contains(sCommand)) {
+			// find it and put it on top
+			for (int iCount = 0; iCount < oJa.count(); ++iCount) {
+				if (0 == sCommand.compare(oJa.at(iCount).toString(),
+										Qt::CaseInsensitive)) {
+					// found, check if already first
+					if (0 != iCount) {
+						oJa.removeAt(iCount);
+						oJa.prepend(sCommand);
+						oJo.insert("command", oJa);
+						bChanged = true;
+					} // if not already first
+					break;
+				} // if found
+			} // loop entries for match
+		} else {
+			// not yet in list
+			oJa.prepend(sCommand);
 			oJo.insert("command", oJa);
 			bChanged = true;
-		} // if new
+		} // if new or old entry
 
 	} // if not empty
 
