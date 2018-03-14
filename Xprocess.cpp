@@ -57,6 +57,9 @@ void Xprocess::onStarted() {
 //	QProcess *pSub = new QProcess();
 //	pSub->start(QString("DISPLAY=:" + sD + " vlc;\n").toUtf8());
 
+//	QProcess *pProcess = new QProcess(this);
+//	pProcess->start(QString("DISPLAY=:" + sD + " vlc;\n").toUtf8());
+
 } // onStarted
 
 
