@@ -211,17 +211,18 @@ void MainWindow::on_buttonAddScreen_clicked() {
 		sHeight = aList.last();
 	} // if got both dimensions in width
 
-	this->pUI->listWidgetScreens->addItem(
-				QString::number(pProcess->processIndex())
-				+ " " + sWidth + "x" + sHeight
-				+ " " + QString::number(this->ubDisplay));
-
 	const QString sWM = (0 == this->pUI->comboBoxWM->currentIndex())
 				  ? "" : this->pUI->comboBoxWM->currentText();
 	QString sC = sWM;
 	const QString sCommand = (this->pUI->comboBoxCommand->currentText().isEmpty())
 							 ? "" : this->pUI->comboBoxCommand->currentText();
 	sC += (sCommand.isEmpty()) ? "" : " " + sCommand;
+
+	this->pUI->listWidgetScreens->addItem(
+				QString::number(pProcess->processIndex())
+				+ " on :" + QString::number(this->ubDisplay)
+				+ " " + sWidth + "x" + sHeight
+				+ " " + sC);
 
 	pProcess->startVirtualWindow(this->ubDisplay++, sWidth.toUInt(),
 								 sHeight.toUInt(), sC);
