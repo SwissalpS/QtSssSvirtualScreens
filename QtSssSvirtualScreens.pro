@@ -26,10 +26,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
 	main.cpp \
 	MainWindow.cpp \
+	TransparentWindow.cpp \
 	Xprocess.cpp
 
 HEADERS += \
 	MainWindow.h \
+	TransparentWindow.h \
 	Xprocess.h
 
 FORMS += \
