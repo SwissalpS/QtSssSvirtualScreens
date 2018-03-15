@@ -8,6 +8,7 @@
 #include <QMainWindow>
 
 #include "Xprocess.h"
+#include "TransparentWindow.h"
 
 
 
@@ -32,6 +33,7 @@ private:
 
 private slots:
 	void on_buttonAddScreen_clicked();
+	void on_buttonMouseRect_clicked();
 
 protected:
 	quint8 ubDisplay;
@@ -39,6 +41,7 @@ protected:
 	QCompleter *pCheight;
 	QCompleter *pCwidth;
 	QCompleter *pCwindowManager;
+	TransparentWindow *pTW;
 	QJsonDocument oJdoc;
 	QList<Xprocess *> apProcesses;
 
@@ -54,6 +57,7 @@ protected slots:
 	void onProcessDone(const quint8 ubIndex);
 	void onProcessError(const QProcess::ProcessError iError,
 						const quint8 ubIndex);
+	void onGotRect(const QRect oRect);
 
 public:
 	explicit MainWindow(QWidget *pParent = 0);

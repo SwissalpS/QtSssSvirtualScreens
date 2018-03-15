@@ -19,7 +19,8 @@ alternate-background-color: rgb(92, 53, 102);
 border-color: rgb(136, 138, 133);
 selection-color: rgb(193, 125, 17);
 selection-background-color: rgb(233, 185, 110);
-font: 14pt &quot;Cantarell&quot;;</string>
+font: 14pt &quot;Cantarell&quot;;
+color: rgb(245, 121, 0);</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -64,6 +65,31 @@ font: 14pt &quot;Cantarell&quot;;</string>
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="buttonMouseRect">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Click to select Rectangle with mouse</string>
+           </property>
+           <property name="text">
+            <string notr="true">[]</string>
+           </property>
+           <property name="shortcut">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLineEdit" name="lineWidth">
            <property name="statusTip">
             <string/>
@@ -101,6 +127,9 @@ font: 14pt &quot;Cantarell&quot;;</string>
            </property>
            <property name="placeholderText">
             <string>height</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>

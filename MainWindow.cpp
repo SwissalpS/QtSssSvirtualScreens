@@ -14,6 +14,11 @@ MainWindow::MainWindow(QWidget *pParent) :
 
 	pUI->setupUi(this);
 
+	this->pTW = new TransparentWindow(this);
+
+	connect(this->pTW, SIGNAL(gotRect(QRect)),
+			this, SLOT(onGotRect(QRect)));
+
 	this->checkDependencies();
 
 	// prepare list of processes
@@ -371,6 +376,13 @@ void MainWindow::on_buttonAddScreen_clicked() {
 } // on_buttonAddScreen_clicked
 
 
+void MainWindow::on_buttonMouseRect_clicked() {
+
+	this->pTW->showFullScreen();
+
+} // on_buttonMouseRect_clicked
+
+
 void MainWindow::onProcessDone(const quint8 ubIndex) {
 
 	this->pUI->listWidgetScreens->item(ubIndex)->setHidden(true);
@@ -385,6 +397,14 @@ void MainWindow::onProcessError(const QProcess::ProcessError iError,
 						 + ":" + QString::number(iError) );
 
 } // onProcessError
+
+
+void MainWindow::onGotRect(const QRect oRect) {
+
+	this->pUI->lineEditHeight->setText(QString::number(oRect.height()));
+	this->pUI->lineWidth->setText(QString::number(oRect.width()));
+
+} // onGotRect
 
 
 void MainWindow::saveHistory() {
