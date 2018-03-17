@@ -14,6 +14,8 @@ TransparentWindow::TransparentWindow(QWidget *pParent) :
 
 	this->pRB = new QRubberBand(QRubberBand::Rectangle, this);
 
+	this->setCursor(Qt::CrossCursor);
+
 } // construct
 
 
