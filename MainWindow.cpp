@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include "ListWidgetItem.h"
 
 #include <QFile>
 #include <QJsonArray>
@@ -218,14 +219,18 @@ void MainWindow::on_buttonAddScreen_clicked() {
 							 ? "" : this->pUI->comboBoxCommand->currentText();
 	sC += (sCommand.isEmpty()) ? "" : " " + sCommand;
 
-	this->pUI->listWidgetScreens->addItem(
-				QString::number(pProcess->processIndex())
-				+ " on :" + QString::number(this->ubDisplay)
-				+ " " + sWidth + "x" + sHeight
-				+ " " + sC);
-
-	pProcess->startVirtualWindow(this->ubDisplay++, sWidth.toUInt(),
+	pProcess->startVirtualWindow(this->ubDisplay, sWidth.toUInt(),
 								 sHeight.toUInt(), sC);
+
+	QListWidgetItem *pItemSuper = new QListWidgetItem(this->pUI->listWidgetScreens);
+	ListWidgetItem *pItem = new ListWidgetItem(
+								   ":" + QString::number(this->ubDisplay),
+								   QString::number(pProcess->processIndex())
+								   + " on :" + QString::number(this->ubDisplay)
+								   + " " + sC);
+	this->pUI->listWidgetScreens->setItemWidget(pItemSuper, pItem);
+
+	this->ubDisplay++;
 
 	bool bChanged = false;
 	QJsonObject oJo = this->oJdoc.object();
